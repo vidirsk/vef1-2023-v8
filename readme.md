@@ -57,15 +57,15 @@ Nota skal gefið HTML og CSS og útfæra rest af JavaScript virkni:
 Skila skal verkefninu keyrandi á Netlify. Gefið er `build` script í `package.json` og setja upp build ferli þ.a. mappa sem verður til í `build` ferli sé notuð fyrir vef. Þetta verður til þess að þau gögn sem eru i möppu og eru ekki fyrir almenning (t.d. `package.json`) eru ekki birt, heldur aðeins:
 
 - `index.html`
-- `scripts.js`
+- `main.js` og skrár í `./lib`
 
 ## Mat
 
 - 10% Verkefni sett upp GitHub og á Netlify og `build` scripta notuð.
-- 30% `addProductToCart()` fall útfært.
-- 20% `showProducts()` fall útfært.
-- 20% `showCart()` fall útfært.
-- 20% `checkout()` fall útfært.
+- 20% Hægt að bæta vöru í körfu.
+- 20% Hægt að eyða vöru úr körfu.
+- 30% Karfa uppfærist með réttri töflu og samtölu.
+- 20% Hægt að ganga frá kaupum og byrja kaup aftur.
 
 ## Sett fyrir
 

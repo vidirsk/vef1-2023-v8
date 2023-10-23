@@ -1,4 +1,4 @@
-import { formatNumber } from './scripts/formatNumber.js';
+import { createCartLine, showCartContent } from './lib/ui.js';
 
 const products = [
   {
@@ -22,58 +22,54 @@ const products = [
   },
 ];
 
-const addToCartForms = document.querySelectorAll('.add')
-
 /** Bæta vöru í körfu */
-function addProductToCart(product) {
-  const cartElement = document.querySelector('.cart');
+function addProductToCart(product, quantity) {
+  // Hér þarf að finna `<tbody>` í töflu og setja `cartLine` inn í það
+  const cart = document.querySelector('.cart-content');
 
-  if (!cartElement) {
-    console.warn('fann ekki .cart')
-    return
-  }
-
-  const emptyMessage = cartElement.querySelector('.empty-message')
-  const cartContent = cartElement.querySelector('.cart-content')
-  
-  if (!emptyMessage || !cartContent) {
-    console.warn('fann ekki element')
+  if (!cart) {
+    console.warn('fann ekki .cart');
     return;
   }
+  
+  // TODO hér þarf að athuga hvort lína fyrir vöruna sé þegar til
+  const cartLine = createCartLine(product, quantity);
+  cart.appendChild(cartLine);
 
-  emptyMessage.classList.add('hidden')
-  cartContent.classList.remove('hidden')
+  // Sýna efni körfu
+  showCartContent(true);
 
-  const productElement = document.createElement('div');
-  const productTitleElement = document.createElement('strong')
-  const productPriceElement = document.createElement('span');
-  productPriceElement.textContent = formatNumber(product.price);
-
-  productTitleElement.textContent = product.title;
-
-  productElement.appendChild(productTitleElement)
-  productElement.appendChild(productPriceElement);
-  cartContent.appendChild(productElement);
-
+  // TODO sýna/uppfæra samtölu körfu
 }
 
 function submitHandler(event) {
+  // Komum í veg fyrir að form submiti
   event.preventDefault();
   
+  // Finnum næsta element sem er `<tr>`
   const parent = event.target.closest('tr')
 
+  // Það er með attribute sem tiltekur auðkenni vöru, t.d. `data-product-id="1"`
   const productId = Number.parseInt(parent.dataset.productId);
 
+  // Finnum vöru með þessu productId
   const product = products.find((i) => i.id === productId);
 
-  addProductToCart(product);
+  // TODO hér þarf að finna fjölda sem á að bæta við körfu með því að athuga
+  // á input
+  const quantity = 1;
+
+  // Bætum vöru í körfu (hér væri gott að bæta við athugun á því að varan sé til)
+  addProductToCart(product, quantity);
 }
 
-function createAddToCartForm(form) {
-  form.addEventListener('submit', submitHandler)
-}
+// Finna öll form með class="add"
+const addToCartForms = document.querySelectorAll('.add')
 
+// Ítra í gegnum þau sem fylki (`querySelectorAll` skilar NodeList)
 for (const form of Array.from(addToCartForms)) {
-  createAddToCartForm(form);
+  // Bæta submit event listener við hvert
+  form.addEventListener('submit', submitHandler);
 }
 
+// TODO bæta við event handler á form sem submittar pöntun
