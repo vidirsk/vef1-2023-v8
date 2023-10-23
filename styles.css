@@ -22,6 +22,10 @@ html {
     Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+.hidden {
+  display: none;
+}
+
 html {
   font-family: var(--font-family);
 }
@@ -113,4 +117,8 @@ main {
 
 .form-field label {
   display: block;
+}
+
+.cart {
+  margin-block-end: var(--spacing);
 }
